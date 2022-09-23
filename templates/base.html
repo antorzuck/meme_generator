@@ -8,15 +8,15 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
 
-    <title>Hello, world!</title>
+    <title>meme.py - Best meme generate website!</title>
     
     <style>
       
     </style>
   </head>
-  <body>
+  <body class="bg-light">
     <nav class="sticky-top p-3 navbar navbar-expand-lg navbar-dark bg-primary">
-       <a class="navbar-brand" href="#">Navbar</a>
+       <a class="navbar-brand" href="#">meme.py</a>
        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
        </button>
@@ -24,15 +24,17 @@
        <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
              <li class="nav-item active">
-                <a class="nav-link" href="/">Home</a>
+               
              </li>
             
            
       
           </ul>
-   <a href="" class="m-auto btn btn-outline-success">Github</a>
+          <div class="ms-auto">
+   <a href="" class="btn btn-outline-success">Github</a>
    
-      <a href="" class="m-auto btn btn-success">Facebook</a>
+      <a href="" class=" btn btn-success">Facebook</a>
+       </div>
        </div>
     </nav>
     
@@ -41,21 +43,18 @@
           
           
           <div class="my-1 col-md-5 col-lg-5">
-         <div class="img-thumbnail p-3 card-body bg-light">
+         <div class="img-thumbnail p-5 card-body bg-white">
          <center><h3 class="text-primary">Choose a template!</h3></center>
    <div class="row">
+
+      {% for t in temp %}
    <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-               <img class="img-fluid img-thumbnail" src="images/a.jpg" alt="">
-            </div>
+      <a href="{% url 'te' t.uid %}"> <img class="img-fluid img-thumbnail" src="{{t.image.url}}" alt=""></a>
+   </div>
             
-   <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-            <img class="img-fluid img-thumbnail" src="images/b.jpg" alt="">
-            </div>
+   {% endfor %}
   
   
-              
-            
-            
          </div>
          
          
@@ -65,14 +64,18 @@
           </div>
           
           <div class="my-1 col-md-7 col-lg-7">
-         <div class="img-thumbnail p-5 card-body bg-light">
+         <div class="img-thumbnail p-5 card-body bg-white">
             <center><h3 class="text-primary">Add a text and hit generate!</h3></center>
-            <img class="img-fluid img-thumbnail" src="images/b.jpg" alt="images/b.jpg">
-            
-            <form class="" action="">
+            {% if photo %}
+            <img class="img-fluid img-thumbnail" src="{{photo.image.url}}" alt="images/b.jpg">
+            {% else %}
+            <img class="img-fluid img-thumbnail" src="/media/temp/03e9e4a61a9e43a28fb7d5585fc594ad.jpg" alt="images/b.jpg">
+            {% endif %}
+            <form method="POST" action="/generate">
+               {% csrf_token %}
                <textarea class="my-4 form-control" name="text" placeholder="Enter your text..." id=""></textarea>
                
-               
+               <input type="hidden" name="tempid" value="{{photo.uid}}">
                <button class="btn btn-success w-100" type="submit">Generate</button>
             </form>
             
