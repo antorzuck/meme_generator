@@ -65,6 +65,16 @@
           
           <div class="my-1 col-md-7 col-lg-7">
          <div class="img-thumbnail p-5 card-body bg-white">
+
+            {% if name %}
+            <center><h3 class="text-primary">Your meme ready to download!</h3></center>
+            <img class="img-fluid img-thumbnail" src="/media/{{name}}.png" alt="meme.py">
+
+            <br>
+            <br><br><br>
+            <a download href="/media/{{name}}.png" class="btn btn-success w-100" >Download</a>
+
+            {% else %}
             <center><h3 class="text-primary">Add a text and hit generate!</h3></center>
             {% if photo %}
             <img class="img-fluid img-thumbnail" src="{{photo.image.url}}" alt="images/b.jpg">
@@ -78,7 +88,7 @@
                <input type="hidden" name="tempid" value="{{photo.uid}}">
                <button class="btn btn-success w-100" type="submit">Generate</button>
             </form>
-            
+            {% endif %}
             
          </div>
           </div>

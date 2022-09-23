@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.shortcuts import render, redirect
 from base.models import *
 from PIL import Image, ImageDraw, ImageFont
@@ -34,4 +35,8 @@ def generate(request):
         drew.text((50, 30), text, font=font, fill=(255,0,0))
         name = random.randint(100000,999999)
         img.save(f"{settings.BASE_DIR}/media/{name}.png")
-        return redirect('/')
+        context = {
+            'name' : name,
+            'temp' : Template.objects.all(),
+        }
+        return render(request, 'base.html', context)
